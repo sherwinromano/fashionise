@@ -1,0 +1,275 @@
+{{ 'section-hero-slider.css' | asset_url | stylesheet_tag }}
+
+<section
+  id="HeroSlider-{{ section.id }}"
+  class="hero-slider hero-slider--{{ section.settings.height }} hero-slider--text-{{ section.settings.text_position }}"
+  data-section-id="{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-autoplay-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+  data-transition-speed="{{ section.settings.transition_speed }}"
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="{% if section.settings.aria_label != blank %}{{ section.settings.aria_label | escape }}{% else %}Featured stories{% endif %}"
+>
+  <div class="hero-slider__viewport">
+    {% if section.blocks.size > 0 %}
+      <div class="hero-slider__track">
+        {% for block in section.blocks %}
+          {% assign is_active = false %}
+          {% if forloop.first %}
+            {% assign is_active = true %}
+          {% endif %}
+          <article
+            class="hero-slider__slide{% if is_active %} hero-slider__slide--active{% endif %}"
+            id="Slide-{{ section.id }}-{{ forloop.index0 }}"
+            data-slide-index="{{ forloop.index0 }}"
+            role="group"
+            aria-roledescription="slide"
+            aria-label="{{ forloop.index }} of {{ section.blocks.size }}"
+            {% if is_active == false %}
+              aria-hidden="true"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            <div class="hero-slider__media">
+              {% if block.settings.background_image != blank %}
+                <picture class="hero-slider__picture">
+                  {{
+                    block.settings.background_image
+                    | image_url: width: 3200
+                    | image_tag:
+                      loading: 'lazy',
+                      fetchpriority: is_active,
+                      widths: '750, 1100, 1500, 2000, 2800, 3200',
+                      sizes: '100vw',
+                      class: 'hero-slider__image',
+                      alt: block.settings.background_image.alt
+                    | default: block.settings.heading
+                    | escape
+                  }}
+                </picture>
+              {% else %}
+                <div class="hero-slider__image hero-slider__image--placeholder">
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'hero-slider__placeholder-svg' }}
+                </div>
+              {% endif %}
+              {% if section.settings.overlay_opacity > 0 %}
+                <span
+                  class="hero-slider__overlay"
+                  style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+                  aria-hidden="true"
+                ></span>
+              {% endif %}
+            </div>
+
+            <div class="hero-slider__content">
+              {% if block.settings.eyebrow != blank %}
+                <p class="hero-slider__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+              {% endif %}
+
+              {% if block.settings.heading != blank %}
+                <h2 class="hero-slider__heading">
+                  {{ block.settings.heading | escape }}
+                </h2>
+              {% endif %}
+
+              {% if block.settings.date != blank or block.settings.author != blank %}
+                <p class="hero-slider__meta">
+                  {% if block.settings.date != blank %}
+                    <span class="hero-slider__meta-date">{{ block.settings.date | escape }}</span>
+                  {% endif %}
+                  {% if block.settings.date != blank and block.settings.author != blank %}
+                    <span class="hero-slider__meta-divider" aria-hidden="true">|</span>
+                  {% endif %}
+                  {% if block.settings.author != blank %}
+                    <span class="hero-slider__meta-author"
+                      >BY <strong>{{ block.settings.author | escape }}</strong></span
+                    >
+                  {% endif %}
+                </p>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_arrows and section.blocks.size > 1 %}
+        <button
+          type="button"
+          class="hero-slider__arrow hero-slider__arrow--prev"
+          aria-label="Previous slide"
+          aria-controls="HeroSlider-{{ section.id }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7.68473 7.33186C8.07526 6.94134 8.07526 6.30817 7.68473 5.91765C7.29421 5.52712 6.66105 5.52712 6.27052 5.91765L1.60492 10.5832C0.823873 11.3643 0.823872 12.6306 1.60492 13.4117L6.27336 18.0801C6.66388 18.4706 7.29705 18.4706 7.68757 18.0801C8.0781 17.6896 8.0781 17.0564 7.68757 16.6659L4.02154 12.9998L22 12.9998C22.5523 12.9998 23 12.5521 23 11.9998C23 11.4476 22.5523 10.9998 22 10.9998L4.01675 10.9998L7.68473 7.33186Z" fill="#fff"></path> </g>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="hero-slider__arrow hero-slider__arrow--next"
+          aria-label="Next slide"
+          aria-controls="HeroSlider-{{ section.id }}"
+        >
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M16.3153 16.6681C15.9247 17.0587 15.9247 17.6918 16.3153 18.0824C16.7058 18.4729 17.339 18.4729 17.7295 18.0824L22.3951 13.4168C23.1761 12.6357 23.1761 11.3694 22.3951 10.5883L17.7266 5.9199C17.3361 5.52938 16.703 5.52938 16.3124 5.91991C15.9219 6.31043 15.9219 6.9436 16.3124 7.33412L19.9785 11.0002L2 11.0002C1.44772 11.0002 1 11.4479 1 12.0002C1 12.5524 1.44772 13.0002 2 13.0002L19.9832 13.0002L16.3153 16.6681Z" fill="#fff"></path> </g>
+          </svg>
+        </button>
+      {% endif %}
+
+      {% if section.settings.show_dots and section.blocks.size > 1 %}
+        <div class="hero-slider__dots" role="tablist" aria-label="Slide navigation">
+          {% for block in section.blocks %}
+            <button
+              type="button"
+              class="hero-slider__dot{% if forloop.first %} hero-slider__dot--active{% endif %}"
+              role="tab"
+              aria-label="Go to slide {{ forloop.index }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              data-dot-index="{{ forloop.index0 }}"
+            ></button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="hero-slider__empty-state">
+        <p>Add a slide block to get started.</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% style %}
+  #HeroSlider-{{ section.id }} {
+    --hero-slider-transition-speed: {{ section.settings.transition_speed }}ms;
+  }
+{% endstyle %}
+
+<script src="{{ 'section-hero-slider.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Hero Slider",
+  "tag": "section",
+  "class": "section section-hero-slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero settings"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Slider behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Change slides every",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Transition speed",
+      "min": 200,
+      "max": 1500,
+      "step": 100,
+      "unit": "ms",
+      "default": 800
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show dot navigation",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Accessibility"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Accessible region label",
+      "default": "Featured stories"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Background"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "eyebrow",
+          "label": "Eyebrow / category",
+          "default": "Fashion"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Style Reimagined: Where Art Meets Utility In Fashion"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "Feb 12, 2022"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author",
+          "default": "Nevida Laviva"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Slider",
+      "category": "Custom sections",
+      "blocks": [{ "type": "slide" }, { "type": "slide" }]
+    }
+  ]
+}
+{% endschema %}
