@@ -1,75 +1,86 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "hero_custom_CYFXfD": {
+      "type": "hero-custom",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "slide_7zrn6a": {
+          "type": "slide",
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h0"
+            "background_image": "shopify://shop_images/slider-image.webp",
+            "eyebrow": "Fashion",
+            "heading": "How To Unlock Creativity & Make Something Useful?",
+            "date": "Feb 12, 2026",
+            "author": "Lora Mariane"
           }
         },
-        "button": {
-          "type": "buttons",
+        "slide_wfgMTT": {
+          "type": "slide",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "background_image": "shopify://shop_images/slider-image1.webp",
+            "eyebrow": "Fashion",
+            "heading": "From Vision to Vogue: Crafting Style With Purpose",
+            "date": "March 4, 2026",
+            "author": "Kendall Chiffone"
+          }
+        },
+        "slide_xaf6jQ": {
+          "type": "slide",
+          "settings": {
+            "background_image": "shopify://shop_images/slider-image2.webp",
+            "eyebrow": "Fashion",
+            "heading": "Style Reimagined: Where Art Meets Utility In Fashion",
+            "date": "May 5, 2026",
+            "author": "Nevida Laviva"
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "slide_7zrn6a",
+        "slide_wfgMTT",
+        "slide_xaf6jQ"
       ],
+      "name": "Hero Slider",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
-        "image_behavior": "none",
-        "desktop_content_alignment": "center",
-        "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
-        "stack_images_on_mobile": false,
-        "show_text_below": false
+        "overlay_opacity": 30,
+        "autoplay": true,
+        "autoplay_speed": 4,
+        "transition_speed": 800,
+        "show_arrows": true,
+        "show_dots": false,
+        "aria_label": "Featured stories"
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "newsletter_custom_NqYFLa": {
+      "type": "newsletter-custom",
+      "name": "Newsletter",
       "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "padding_top": 44,
-        "padding_bottom": 36
+        "padding_block": 160,
+        "heading": "Subscribe Our Newsletter",
+        "show_form": true,
+        "email_label": "Email address",
+        "placeholder": "Your e-mail address here",
+        "button_text": "Subscribe",
+        "success_message": "Thank you for subscribing!",
+        "background_color": "#FFFFFF",
+        "text_color": "#000000",
+        "input_background_color": "#FFFFFF",
+        "input_border_color": "#1B1B1B",
+        "button_background_color": "#22272B",
+        "button_text_color": "#FFFFFF"
       }
     }
   },
   "order": [
-    "image_banner",
-    "featured_collection"
+    "hero_custom_CYFXfD",
+    "newsletter_custom_NqYFLa"
   ]
 }

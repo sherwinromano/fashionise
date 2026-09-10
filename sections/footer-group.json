@@ -1,1 +1,71 @@
-{"name":"t:sections.footer.name","type":"footer","sections":{"footer":{"type":"footer","settings":{"color_scheme":"scheme-1","newsletter_enable":true,"newsletter_heading":"Subscribe to our emails","enable_follow_on_shop":true,"show_social":true,"enable_country_selector":true,"enable_language_selector":true,"payment_enable":true,"show_policy":true,"margin_top":0,"padding_top":36,"padding_bottom":36}}},"order":["footer"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "name": "t:sections.footer.name",
+  "type": "footer",
+  "sections": {
+    "footer_custom_X7hDnC": {
+      "type": "footer-custom",
+      "blocks": {
+        "menu_nG3Abt": {
+          "type": "menu",
+          "settings": {
+            "heading": "Quick Links",
+            "menu": "quick-links"
+          }
+        },
+        "menu_fegCey": {
+          "type": "menu",
+          "settings": {
+            "heading": "Categories",
+            "menu": "categories"
+          }
+        }
+      },
+      "block_order": [
+        "menu_nG3Abt",
+        "menu_fegCey"
+      ],
+      "name": "Footer",
+      "settings": {
+        "brand_title": "FASHIONISE",
+        "brand_description": "<p>Vel non nibh vestibulum massa ullamcorper. Bibendum ultricies venenatis, id id sed mass commodo eros duis ut cras neque.</p>",
+        "background_color": "#1B1B1B",
+        "text_color": "#FFFFFF",
+        "heading_color": "#FFFFFF",
+        "link_color": "#FFFFFF",
+        "padding_top": 96,
+        "padding_bottom": 96
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "disabled": true,
+      "settings": {
+        "color_scheme": "scheme-1",
+        "newsletter_enable": true,
+        "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
+        "show_social": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true,
+        "payment_enable": true,
+        "show_policy": true,
+        "margin_top": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "footer_custom_X7hDnC",
+    "footer"
+  ]
+}
