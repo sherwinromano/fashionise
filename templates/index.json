@@ -59,6 +59,90 @@
         "aria_label": "Featured stories"
       }
     },
+    "top_videos_custom_gWz6WR": {
+      "type": "top-videos-custom",
+      "blocks": {
+        "video_p9Hyga": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/slider-image.webp",
+            "video_url": "https://www.youtube.com/watch?v=5HPPywo7ukA",
+            "heading": "Beautiful Dress Shown By Top Fashion Models",
+            "text": "<p>Vel non nibh vestibulum massa ullamcorper, bibendum ultrices venenatis, id id sed mass commodo eros duis ut cras neque.</p>"
+          }
+        },
+        "video_wnaizM": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/slider-image2.webp",
+            "video_url": "https://www.youtube.com/watch?v=5HPPywo7ukA",
+            "heading": "Why Is Make Up Important For Your Confidence?",
+            "text": "<p>Vel non nibh vestibulum massa ullamcorper, bibendum ultrices venenatis, id id sed mass commodo eros duis ut cras neque.</p>"
+          }
+        },
+        "video_3qwaVh": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/slider-image1.webp",
+            "video_url": "https://www.youtube.com/watch?v=5HPPywo7ukA",
+            "heading": "Beautiful Dress Shown By Top Fashion Models",
+            "text": "<p>Vel non nibh vestibulum massa ullamcorper, bibendum ultrices venenatis, id id sed mass commodo eros duis ut cras neque.</p>"
+          }
+        },
+        "video_VafHzE": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/slider-image.webp",
+            "video_url": "https://www.youtube.com/watch?v=5HPPywo7ukA",
+            "heading": "Beautiful Dress Shown By Top Fashion Models",
+            "text": "<p>Vel non nibh vestibulum massa ullamcorper, bibendum ultrices venenatis, id id sed mass commodo eros duis ut cras neque.</p>"
+          }
+        },
+        "video_tykt3i": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/slider-image2.webp",
+            "video_url": "https://www.youtube.com/watch?v=5HPPywo7ukA",
+            "heading": "Beautiful Dress Shown By Top Fashion Models",
+            "text": "<p>Vel non nibh vestibulum massa ullamcorper, bibendum ultrices venenatis, id id sed mass commodo eros duis ut cras neque.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "video_p9Hyga",
+        "video_wnaizM",
+        "video_3qwaVh",
+        "video_VafHzE",
+        "video_tykt3i"
+      ],
+      "name": "Top Videos",
+      "settings": {
+        "heading": "Top Videos",
+        "heading_color": "#f5f5f5",
+        "background_color": "#191919",
+        "text_color": "#c9a48c",
+        "accent_color": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "shop_collection_custom_freiRp": {
+      "type": "shop-collection-custom",
+      "name": "Shop it now",
+      "settings": {
+        "heading": "SHOP IT NOW",
+        "collection": "frontpage",
+        "view_all_text": "VIEW ALL PRODUCTS",
+        "products_to_show": 10,
+        "autoplay_delay": 3000,
+        "transition_speed": 700,
+        "product_gap": 20,
+        "text_color": "#1b1b1b",
+        "price_color": "#977A50",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "newsletter_custom_NqYFLa": {
       "type": "newsletter-custom",
       "name": "Newsletter",
@@ -70,17 +154,19 @@
         "placeholder": "Your e-mail address here",
         "button_text": "Subscribe",
         "success_message": "Thank you for subscribing!",
-        "background_color": "#FFFFFF",
+        "background_color": "#ffffff",
         "text_color": "#000000",
-        "input_background_color": "#FFFFFF",
-        "input_border_color": "#1B1B1B",
-        "button_background_color": "#22272B",
-        "button_text_color": "#FFFFFF"
+        "input_background_color": "#ffffff",
+        "input_border_color": "#1b1b1b",
+        "button_background_color": "#22272b",
+        "button_text_color": "#ffffff"
       }
     }
   },
   "order": [
     "hero_custom_CYFXfD",
+    "top_videos_custom_gWz6WR",
+    "shop_collection_custom_freiRp",
     "newsletter_custom_NqYFLa"
   ]
 }
