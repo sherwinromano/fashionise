@@ -1,0 +1,665 @@
+<section
+  id="shopify-section-{{ section.id }}"
+  class="shop-it-now"
+  style="
+    --shop-it-now-text-color: {{ section.settings.text_color }};
+    --shop-it-now-price-color: {{ section.settings.price_color }};
+    --shop-it-now-padding-top: {{ section.settings.padding_top }}px;
+    --shop-it-now-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --shop-it-now-gap: {{ section.settings.product_gap }}px;
+    --shop-it-now-transition-speed: {{ section.settings.transition_speed }}ms;
+    --shop-it-now-autoplay-delay: {{ section.settings.autoplay_delay }}ms;
+  "
+>
+  <div class="shop-it-now__container">
+    <div class="shop-it-now__header page-width">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="shop-it-now__heading">
+          {{ section.settings.heading | escape }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.view_all_text != blank and section.settings.collection != blank -%}
+        <a
+          href="{{ section.settings.collection.url }}"
+          class="shop-it-now__view-all"
+        >
+          {{ section.settings.view_all_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.collection != blank -%}
+      {%- assign collection = section.settings.collection -%}
+
+      <div
+        class="shop-it-now__carousel"
+        data-shop-it-now
+      >
+        <div
+          class="shop-it-now__track"
+          data-shop-it-now-track
+        >
+          {%- for product in collection.products limit: section.settings.products_to_show -%}
+            <article
+              class="shop-it-now__product"
+              data-shop-it-now-item
+            >
+              <a
+                href="{{ product.url }}"
+                class="shop-it-now__product-link"
+              >
+                {%- if product.featured_image -%}
+                  <div class="shop-it-now__image-wrapper">
+                    {{
+                      product.featured_image
+                      | image_url: width: 800
+                      | image_tag:
+                        class: 'shop-it-now__image',
+                        loading: 'lazy',
+                        widths: '320, 480, 640, 800',
+                        sizes: '(min-width: 1024px) 20vw, (min-width: 768px) 30vw, 80vw',
+                        alt: product.featured_image.alt
+                      | default: product.title
+                      | escape
+                    }}
+                  </div>
+
+                {%- else -%}
+                  <div class="shop-it-now__image-wrapper">
+                    {{ 'product-1' | placeholder_svg_tag: 'shop-it-now__placeholder' }}
+                  </div>
+                {%- endif -%}
+
+                <div class="shop-it-now__product-info">
+                  <h3 class="shop-it-now__product-title">
+                    {{ product.title | escape }}
+                  </h3>
+
+                  <div class="shop-it-now__product-action">
+                    <span class="shop-it-now__product-price">
+                      {{ product.price | money }}
+                    </span>
+
+                    {%- if product.available -%}
+                      {%- form 'product', product, class: 'shop-it-now__add-form', data-product-form: '' -%}
+                        <input
+                          type="hidden"
+                          name="id"
+                          value="{{ product.selected_or_first_available_variant.id }}"
+                        >
+
+                        <input
+                          type="hidden"
+                          name="quantity"
+                          value="1"
+                        >
+
+                        <button
+                          type="submit"
+                          class="shop-it-now__add-button"
+                        >
+                          ADD TO CART
+                        </button>
+                      {%- endform -%}
+
+                    {%- else -%}
+                      <span class="shop-it-now__sold-out"> SOLD OUT </span>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </a>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+
+    {%- else -%}
+      <div class="shop-it-now__empty page-width">
+        <p>Select a collection in the Theme Editor.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+      #shopify-section-{{ section.id }} .shop-it-now {
+        width: 100%;
+        overflow: hidden;
+        color: var(--shop-it-now-text-color);
+        padding-top: var(--shop-it-now-padding-top);
+        padding-bottom: var(--shop-it-now-padding-bottom);
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        margin-bottom: 6rem;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__heading {
+        margin: 0;
+
+        color: var(--shop-it-now-text-color);
+
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 2rem;
+        font-weight: 400;
+        line-height: 1.1;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__view-all {
+        display: inline-block;
+        color: var(--shop-it-now-text-color);
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.4;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition: opacity 0.2s ease;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__view-all:hover {
+        opacity: 0.6;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__carousel {
+        width: 100%;
+        overflow: hidden;
+      }
+
+
+      #shopify-section-{{ section.id }} .shop-it-now__track {
+        display: flex;
+        gap: var(--shop-it-now-gap);
+        width: max-content;
+        transform: translate3d(0, 0, 0);
+        transition:
+          transform var(--shop-it-now-transition-speed) ease-in-out;
+        will-change: transform;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__product {
+       flex-basis: calc(
+        (100vw - var(--shop-it-now-gap)) / 2
+      );
+        min-width: 0;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__product-link {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__image-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1 / 1.3;
+        overflow: hidden;
+        background-color: #f2f2f2;
+      }
+
+
+      #shopify-section-{{ section.id }} .shop-it-now__image {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.35s ease;
+      }
+
+
+      #shopify-section-{{ section.id }} .shop-it-now__product-link:hover
+        .shop-it-now__image {
+        transform: scale(1.025);
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__product-info {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 1rem;
+        padding-top: 0.75rem;
+      }
+
+      #shopify-section-{{ section.id }} .shop-it-now__product-title {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        margin: 0;
+        color: var(--shop-it-now-text-color);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.7;
+        text-transform: uppercase;
+      }
+
+
+      #shopify-section-{{ section.id }} .shop-it-now__product-price {
+        color: var(--shop-it-now-price-color);
+
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 1.7;
+
+        white-space: nowrap;
+      }
+
+
+      #shopify-section-{{ section.id }} .shop-it-now__empty {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        text-align: center;
+      }
+
+  #shopify-section-{{ section.id }} .shop-it-now__product-action {
+    position: relative;
+    display: grid;
+    min-width: 7rem;
+    min-height: 1.5rem;
+    align-items: center;
+    justify-items: end;
+  }
+
+  #shopify-section-{{ section.id }} .shop-it-now__product-price {
+    grid-area: 1 / 1;
+    color: var(--shop-it-now-price-color);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.7;
+    white-space: nowrap;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .shop-it-now__add-form {
+    grid-area: 1 / 1;
+    margin: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .shop-it-now__add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 7rem;
+    min-height: 1.5rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--shop-it-now-text-color);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.7;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  #shopify-section-{{ section.id }}
+    .shop-it-now__product-link:hover
+    .shop-it-now__product-price {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+
+  #shopify-section-{{ section.id }}
+    .shop-it-now__product-link:hover
+    .shop-it-now__add-form {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  #shopify-section-{{ section.id }} .shop-it-now__sold-out {
+    grid-area: 1 / 1;
+    color: var(--shop-it-now-text-color);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  @media screen and (min-width: 768px) and (max-width: 1023px) {
+      #shopify-section-{{ section.id }} .shop-it-now__product {
+        flex-basis: calc(
+          (100vw - var(--shop-it-now-gap)) / 2
+        );
+      }
+    }
+
+      @media screen and (min-width: 1024px) {
+
+        #shopify-section-{{ section.id }} .shop-it-now__header {
+          margin-bottom: 6.5rem;
+        }
+
+
+       #shopify-section-{{ section.id }} .shop-it-now__product {
+        flex-basis: calc(
+          (100vw - (var(--shop-it-now-gap) * 4)) / 5
+        );
+      }
+
+      }
+
+
+      @media (prefers-reduced-motion: reduce) {
+        #shopify-section-{{ section.id }} .shop-it-now__track {
+          transition: none;
+        }
+
+      }
+</style>
+
+<script>
+  (() => {
+    const initShopItNow = (section) => {
+      if (!section) {
+        return;
+      }
+
+      const track = section.querySelector('[data-shop-it-now-track]');
+
+      const items = section.querySelectorAll('[data-shop-it-now-item]');
+
+      if (!track || items.length <= 1) {
+        return;
+      }
+
+      if (section.dataset.shopItNowInitialized === 'true') {
+        return;
+      }
+
+      section.dataset.shopItNowInitialized = 'true';
+
+      const styles = window.getComputedStyle(section);
+
+      const transitionSpeed = parseInt(styles.getPropertyValue('--shop-it-now-transition-speed'), 10) || 700;
+
+      const autoplayDelay = parseInt(styles.getPropertyValue('--shop-it-now-autoplay-delay'), 10) || 2500;
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const originalItems = Array.from(items);
+
+      originalItems.forEach((item) => {
+        const clone = item.cloneNode(true);
+
+        clone.dataset.shopItNowClone = 'true';
+
+        track.appendChild(clone);
+      });
+
+      let currentIndex = 0;
+      let autoplayTimer = null;
+      let isTransitioning = false;
+
+      const getSlideDistance = () => {
+        const firstItem = track.querySelector('[data-shop-it-now-item]');
+
+        if (!firstItem) {
+          return 0;
+        }
+
+        const itemWidth = firstItem.getBoundingClientRect().width;
+
+        const gap = parseFloat(window.getComputedStyle(track).gap) || 0;
+
+        return itemWidth + gap;
+      };
+
+      const moveToSlide = (index, animate = true) => {
+        const distance = getSlideDistance();
+
+        if (!distance) {
+          return;
+        }
+
+        track.style.transition = animate ? `transform ${transitionSpeed}ms ease-in-out` : 'none';
+
+        track.style.transform = `translate3d(-${index * distance}px, 0, 0)`;
+      };
+
+      const nextSlide = () => {
+        if (isTransitioning) {
+          return;
+        }
+
+        isTransitioning = true;
+
+        currentIndex += 1;
+
+        moveToSlide(currentIndex, true);
+
+        window.setTimeout(() => {
+          isTransitioning = false;
+
+          if (currentIndex >= originalItems.length) {
+            currentIndex = 0;
+
+            moveToSlide(currentIndex, false);
+          }
+
+          startAutoplay();
+        }, transitionSpeed + 50);
+      };
+
+      const startAutoplay = () => {
+        if (prefersReducedMotion) {
+          return;
+        }
+
+        window.clearTimeout(autoplayTimer);
+
+        autoplayTimer = window.setTimeout(() => {
+          nextSlide();
+        }, autoplayDelay);
+      };
+
+      let touchStartX = 0;
+      let touchEndX = 0;
+
+      track.addEventListener(
+        'touchstart',
+        (event) => {
+          touchStartX = event.touches[0].clientX;
+
+          window.clearTimeout(autoplayTimer);
+        },
+        {
+          passive: true,
+        }
+      );
+
+      track.addEventListener(
+        'touchend',
+        (event) => {
+          touchEndX = event.changedTouches[0].clientX;
+
+          const swipeDistance = touchStartX - touchEndX;
+
+          if (swipeDistance > 50) {
+            nextSlide();
+          }
+
+          if (swipeDistance < -50) {
+            if (currentIndex > 0) {
+              currentIndex -= 1;
+              moveToSlide(currentIndex, true);
+            }
+          }
+
+          startAutoplay();
+        },
+        {
+          passive: true,
+        }
+      );
+
+      let resizeTimeout;
+
+      window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimeout);
+
+        resizeTimeout = window.setTimeout(() => {
+          moveToSlide(currentIndex, false);
+        }, 100);
+      });
+
+      section.addEventListener('shopify:section:unload', () => {
+        window.clearTimeout(autoplayTimer);
+      });
+
+      moveToSlide(0, false);
+
+      startAutoplay();
+    };
+
+    const section = document.querySelector('#shopify-section-{{ section.id }}');
+
+    if (section) {
+      initShopItNow(section);
+    }
+
+    document.addEventListener('shopify:section:load', (event) => {
+      if (event.detail && event.detail.sectionId === '{{ section.id }}') {
+        initShopItNow(event.target);
+      }
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Shop it now",
+  "tag": "section",
+  "class": "section-shop-it-now",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "SHOP IT NOW"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all text",
+      "default": "VIEW ALL PRODUCTS"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 5,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    },
+
+    {
+      "type": "header",
+      "content": "Carousel"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Pause between slides",
+      "min": 1000,
+      "max": 6000,
+      "step": 250,
+      "unit": "ms",
+      "default": 2500
+    },
+    {
+      "type": "range",
+      "id": "transition_speed",
+      "label": "Slide transition",
+      "min": 200,
+      "max": 1500,
+      "step": 50,
+      "unit": "ms",
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "product_gap",
+      "label": "Product gap",
+      "min": 8,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#1b1b1b"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price",
+      "default": "#977A50"
+    },
+
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 32,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 32,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop it now",
+      "category": "Custom sections"
+    }
+  ]
+}
+{% endschema %}
