@@ -17,7 +17,7 @@
           "settings": {
             "background_image": "shopify://shop_images/slider-image.webp",
             "eyebrow": "Fashion",
-            "heading": "How To Unlock Creativity & Make Something Useful?",
+            "heading": "Unlock Creativity, Make Something Useful",
             "date": "Feb 12, 2026",
             "author": "Lora Mariane"
           }
@@ -27,7 +27,7 @@
           "settings": {
             "background_image": "shopify://shop_images/slider-image1.webp",
             "eyebrow": "Fashion",
-            "heading": "From Vision to Vogue: Crafting Style With Purpose",
+            "heading": "Crafting Style With Purpose",
             "date": "March 4, 2026",
             "author": "Kendall Chiffone"
           }
@@ -37,7 +37,7 @@
           "settings": {
             "background_image": "shopify://shop_images/slider-image2.webp",
             "eyebrow": "Fashion",
-            "heading": "Style Reimagined: Where Art Meets Utility In Fashion",
+            "heading": "Where Art Meets Fashion Utility",
             "date": "May 5, 2026",
             "author": "Nevida Laviva"
           }
@@ -52,10 +52,10 @@
       "settings": {
         "overlay_opacity": 30,
         "autoplay": true,
-        "autoplay_speed": 4,
+        "autoplay_speed": 6,
         "transition_speed": 800,
         "show_arrows": true,
-        "show_dots": false,
+        "show_dots": true,
         "aria_label": "Featured stories"
       }
     },
@@ -71,7 +71,7 @@
         "column_gap": 32,
         "row_gap": 56,
         "text_color": "#111111",
-        "meta_color": "#977A50",
+        "meta_color": "#977a50",
         "padding_top": 72,
         "padding_bottom": 72
       }
@@ -88,7 +88,7 @@
         "column_gap": 32,
         "row_gap": 56,
         "text_color": "#111111",
-        "meta_color": "#977A50",
+        "meta_color": "#977a50",
         "padding_top": 72,
         "padding_bottom": 72
       }
